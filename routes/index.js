@@ -1,18 +1,12 @@
 const express = require('express')
+const { home } = require('../controllers/homeController')
+const { formCreateAccount } = require('../controllers/usersController')
 const router = express.Router()
 
 module.exports = function () {
-    router.get('/', (req, res) => {
-        res.render('home', {
+    router.get('/', home)
 
-        })
-    })
-
-    router.get('/crear-cuenta', (req, res) => {
-        res.render('createAccount', {
-
-        })
-    })
+    router.get('/crear-cuenta', formCreateAccount)
 
     return router;
 }
