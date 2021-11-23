@@ -21,23 +21,36 @@
         </a>
         <nav class="nav">
             <a href="#">Crear grupo</a>
-            <a href="#">Iniciar sesión</a>
+            <a href="/iniciar-sesion">Iniciar sesión</a>
             <a href="/crear-cuenta ">Registrarse</a>
         </nav>
     </header>
 
-    <%- body %>
+    <% if(locals.messages) { %>
+        <% const category=Object.keys(locals.messages) %>
+            <% if(category.length){ %>
+                <% locals.messages[category].forEach(alert=> { %>
+                    <div class="alertas">
+                        <p class="alerta <%= category %>">
+                            <%= alert %>
+                        </p>
+                    </div>
+                    <% }) %>
+                        <% } %>
+                            <% } %>
 
-        <footer class="site-footer contenedor">
-            <nav class="nav">
-                <a href="#">Crear grupo</a>
-                <a href="#">Iniciar sesión</a>
-                <a href="/crear-cuenta">Registrarse</a>
-            </nav>
+                                <%- body %>
 
-            <p class="copyright">Todos los derechos reservados <%- year %>
-            </p>
-        </footer>
+                                    <footer class="site-footer contenedor">
+                                        <nav class="nav">
+                                            <a href="#">Crear grupo</a>
+                                            <a href="#">Iniciar sesión</a>
+                                            <a href="/crear-cuenta">Registrarse</a>
+                                        </nav>
+
+                                        <p class="copyright">Todos los derechos reservados <%- year %>
+                                        </p>
+                                    </footer>
 </body>
 
 </html>

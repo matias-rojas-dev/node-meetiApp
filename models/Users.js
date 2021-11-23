@@ -15,12 +15,23 @@ const Users = db.define('users', {
         allowNull: false,
         validate: {
             isEmail: {
-                messageDB: 'Agrega un correo válido'
+                args: true,
+                msg: 'Agrega un correo válido'
+            },
+            isUnique: function (value, next) {
+                let self = this
+                Users.findOne({ where: { email: value } })
+                    .then(function (user) {
+                        if (user && self.id !== user.id) {
+                            return next('El correo ya se encuentra registrado')
+                        }
+                        return next()
+                    })
+                    .catch(function (err) {
+                        return next(err)
+                    }
+                    )
             }
-        },
-        unique: {
-            args: true,
-            messageDB: 'Usuario ya registrado'
         },
 
     },
@@ -29,7 +40,7 @@ const Users = db.define('users', {
         allowNull: false,
         validate: {
             notEmpty: {
-                messageDB: 'La contraseña no puede ir vacía'
+                msg: 'La contraseña no puede ir vacía'
             }
         }
     },
