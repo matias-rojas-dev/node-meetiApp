@@ -1,5 +1,5 @@
 const Users = require('../models/Users')
-
+const sendEmail = require('../handlers/email')
 exports.formCreateAccount = (req, res) => {
     res.render('createAccount', {
         titlePage: 'Crea tu cuenta'
@@ -15,6 +15,16 @@ exports.createNewAccount = async (req, res) => {
 
     try {
         await Users.create(req.body)
+        // URL
+        const url = `http://${req.headers.host}/confirm-account/${req.body.email}`
+        // send email 
+        await sendEmail.sendEmail({
+            user: req.body,
+            url,
+            object: 'Confirma tu cuenta de Meeti',
+            file: 'confirmAccount'
+        })
+
         req.flash('exito', 'Hemos enviado un correo de confirmación')
         res.redirect('/iniciar-sesion')
     } catch (err) {
