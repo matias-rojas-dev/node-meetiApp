@@ -6,6 +6,7 @@ const flash = require('connect-flash')
 const session = require('express-session')
 const cookieParser = require('cookie-parser')
 const expressValidator = require('express-validator')
+const passport = require('./config/passport')
 // Dev variables
 require('dotenv').config({ path: 'variables.env' })
 
@@ -45,6 +46,10 @@ app.use(session({
     saveUninitialized: false,
 }))
 app.use(flash())
+
+// initialize passport
+app.use(passport.initialize())
+app.use(passport.session())
 
 
 app.use((req, res, next) => {

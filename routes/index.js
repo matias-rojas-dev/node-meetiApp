@@ -6,8 +6,12 @@ const {
     formCreateAccount,
     createNewAccount,
     formLogin,
-    confirmAccount
+    confirmAccount,
 } = require('../controllers/usersController')
+
+const {
+    authenticateUser
+} = require('../controllers/authController')
 
 module.exports = function () {
     router.get('/', home)
@@ -21,6 +25,7 @@ module.exports = function () {
 
     // login
     router.get('/iniciar-sesion', formLogin)
+    router.post('/iniciar-sesion', authenticateUser)
 
 
     return router;
