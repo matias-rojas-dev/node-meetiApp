@@ -30,10 +30,17 @@ exports.createNewAccount = async (req, res) => {
         res.redirect('/iniciar-sesion')
 
     } catch (error) {
-        // get the msgs from the errors (express validation)
-        const sequelizeErrors = error.errors.map(err => err.message)
-        // get only the msg of the errors
-        const errExpress = expressErrors.map(err => err.msg)
+
+        try {
+            // get the msgs from the errors (express validation)
+            const sequelizeErrors = error.errors.map(err => err.message)
+            // get only the msg of the errors
+            const errExpress = expressErrors.map(err => err.msg)
+        } catch (error) {
+            req.flash('error', 'Hubo un error al crear la cuenta. Favor de intentarlo más tarde')
+            res.redirect('/crear-cuenta')
+        }
+
         // concat both arrays
         const listErrors = [...sequelizeErrors, ...errExpress]
         req.flash('error', listErrors)

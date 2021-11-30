@@ -10,8 +10,13 @@ const {
 } = require('../controllers/usersController')
 
 const {
-    authenticateUser
+    authenticateUser, userAuthenticated
 } = require('../controllers/authController')
+
+const {
+    panelAdmin
+} = require('../controllers/adminController')
+const { formNewGroup } = require('../controllers/groupsController')
 
 module.exports = function () {
     router.get('/', home)
@@ -26,6 +31,20 @@ module.exports = function () {
     // login
     router.get('/iniciar-sesion', formLogin)
     router.post('/iniciar-sesion', authenticateUser)
+
+    // panel admin
+    router.get(
+        '/panel-admin',
+        userAuthenticated,
+        panelAdmin
+    )
+
+    // new groups
+    router.get(
+        '/nuevo-grupo',
+        userAuthenticated,
+        formNewGroup
+    )
 
 
     return router;
