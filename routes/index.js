@@ -16,7 +16,10 @@ const {
 const {
     panelAdmin,
 } = require('../controllers/adminController')
-const { formNewGroup, createGroup
+const {
+    formNewGroup,
+    createGroup,
+    uploadImage
 } = require('../controllers/groupsController')
 
 module.exports = function () {
@@ -47,7 +50,11 @@ module.exports = function () {
         formNewGroup
     )
 
-    router.post('/nuevo-grupo', createGroup)
+    router.post(
+        '/nuevo-grupo',
+        uploadImage,
+        createGroup
+    )
 
 
     return router;
