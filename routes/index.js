@@ -19,7 +19,8 @@ const {
 const {
     formNewGroup,
     createGroup,
-    uploadImage
+    uploadImage,
+    formEditGroup
 } = require('../controllers/groupsController')
 
 module.exports = function () {
@@ -52,8 +53,17 @@ module.exports = function () {
 
     router.post(
         '/nuevo-grupo',
+        userAuthenticated,
         uploadImage,
         createGroup
+    )
+
+    // update groups
+    router.get(
+        '/editar-grupo/:grupoId',
+        userAuthenticated,
+        formEditGroup,
+
     )
 
 
