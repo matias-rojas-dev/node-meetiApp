@@ -20,7 +20,12 @@ const {
     formNewGroup,
     createGroup,
     uploadImage,
-    formEditGroup
+    formEditGroup,
+    editGroup,
+    formEditImage,
+    editImage,
+    formDeleteGroup,
+    deleteGroup
 } = require('../controllers/groupsController')
 
 module.exports = function () {
@@ -63,9 +68,40 @@ module.exports = function () {
         '/editar-grupo/:grupoId',
         userAuthenticated,
         formEditGroup,
-
     )
 
+    router.post(
+        '/editar-grupo/:grupoId',
+        userAuthenticated,
+        editGroup,
+    )
+
+    //edit image
+    router.get(
+        '/imagen-grupo/:grupoId',
+        userAuthenticated,
+        formEditImage
+    )
+
+    router.post(
+        '/imagen-grupo/:grupoId',
+        userAuthenticated,
+        uploadImage,
+        editImage
+    );
+
+    // delete groups
+    router.get(
+        '/eliminar-grupo/:grupoId',
+        userAuthenticated,
+        formDeleteGroup
+    )
+
+    router.post(
+        '/eliminar-grupo/:grupoId',
+        userAuthenticated,
+        deleteGroup
+    )
 
     return router;
 }

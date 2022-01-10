@@ -8,6 +8,9 @@ body {
     font-family: 'Raleway', sans-serif;
     color: #484349;
 }
+a{
+    margin: 0 10px;
+}
 h1,h2{
     font-family: 'Staatliches', cursive;
     text-align: center;
@@ -27,6 +30,7 @@ a {
     text-decoration: none;
     color: black;
 }
+
 .contenedor {
     max-width: 1200px;
     margin: 0 auto;
